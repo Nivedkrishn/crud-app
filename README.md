@@ -17,3 +17,5 @@ npm start
 ```
 
 Use `curl` or a tool like Postman to hit endpoints.
+
+Note: This repository includes a feature branch `feature/add-search-endpoint` and a PR demo to show GitHub merge behavior.
