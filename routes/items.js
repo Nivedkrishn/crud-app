@@ -2,8 +2,13 @@ const express = require('express');
 const router = express.Router();
 
 // In-memory items store
-let items = [];
-let nextId = 1;
+// Seed data
+let items = [
+  { id: 1, name: 'Apple', value: 1 },
+  { id: 2, name: 'Banana', value: 2 },
+  { id: 3, name: 'Cherry', value: 3 }
+];
+let nextId = items.length + 1;
 
 // GET /items - list items
 router.get('/', (req, res) => res.json(items));
@@ -31,6 +36,17 @@ router.post('/', (req, res) => {
   const newItem = { id: nextId++, name, value };
   items.push(newItem);
   res.status(201).json(newItem);
+});
+
+// POST /items/reset - reset items to default seed data
+router.post('/reset', (req, res) => {
+  items = [
+    { id: 1, name: 'Apple', value: 1 },
+    { id: 2, name: 'Banana', value: 2 },
+    { id: 3, name: 'Cherry', value: 3 }
+  ];
+  nextId = items.length + 1;
+  res.json({ message: 'Items reset to seed data', items });
 });
 
 // PUT /items/:id - update item
