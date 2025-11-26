@@ -8,6 +8,14 @@ let nextId = 1;
 // GET /items - list items
 router.get('/', (req, res) => res.json(items));
 
+// GET /items/search?q=:text - search items by name (case-insensitive)
+router.get('/search', (req, res) => {
+  const q = (req.query.q || '').toLowerCase();
+  if (!q) return res.status(400).json({ message: 'q query param is required' });
+  const results = items.filter(i => (i.name || '').toLowerCase().includes(q));
+  res.json(results);
+});
+
 // GET /items/:id - get single item
 router.get('/:id', (req, res) => {
   const id = parseInt(req.params.id, 10);
